@@ -24,17 +24,19 @@ public class StringListSearch {
     }
 
     public static int orderedBinarySearch(ArrayList<String> items, String term) {
-        int start = 0;
-        int midpoint = items.size() / 2;
-        int end = items.size() - 1;
+        int high = items.size() - 1;
+        int low = 0;
+        int mid = (low + high) / 2;
 
-        while (start != end) {
-            if (items.get(midpoint).equals(term)) {
-                return midpoint;
-            } else if (items.get(midpoint).compareTo(term) < 0) {
-                start = midpoint;
-            } else if (items.get(midpoint).compareTo(term) > 0) {
-                end = midpoint;
+        while (low <= high) {
+            if (term == items.get(mid)) {
+                return mid;
+            } else if (term.compareTo(items.get(mid)) > 0) {
+                low = mid + 1;
+                mid = (low + high) / 2;
+            } else {
+                high = mid - 1;
+                mid = (low + high) / 2;
             }
         }
         return -1;
